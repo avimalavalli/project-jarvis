@@ -4,8 +4,8 @@ Last updated: 2026-08-26
 
 | ID | Risk | Severity | Owner | Treatment | Status |
 |---|---|---:|---|---|---|
-| R-001 | Public `main` is not yet protected | High | Avi | Require CI/review and restrict direct changes | Open |
-| R-002 | Avi's PC configuration is unverified | High | Unassigned | Run read-only inventory and benchmarks | Open |
+| R-001 | Public `main` could accept uncontrolled changes | High | Avi | Required PR plus `foundation` check; admin bypass, force pushes and deletion disabled | Closed — controls verified |
+| R-002 | Existing-PC resources may constrain local inference | High | Avi | Privacy-safe inventory reviewed; run workload benchmarks before choosing models or hardware | Partially mitigated — benchmarks open |
 | R-003 | OpenJarvis stable/newer candidates differ | High | Unassigned | Test exact immutable candidates | Open |
 | R-004 | Tool/confirmation bypass | Critical | Unassigned | Sole policy gateway plus bypass tests | Open |
 | R-005 | Plaintext credential persistence | Critical | Unassigned | OS-vault broker and canary tests | Open |
@@ -17,3 +17,4 @@ Last updated: 2026-08-26
 | R-011 | Backup, restore and revocation unproven | High | Unassigned | Run documented drills | Open |
 | R-012 | Premature hardware/microservices | Medium | Unassigned | Existing PC and modular monolith first | Mitigated by design |
 | R-013 | Phase 0 functions lack named owners | High | Avi | Assign accountable owners | Open |
+| R-014 | Laptop and larger PC diverge into separate JARVIS identities | Critical | Avi | One canonical state authority; verified backup/restore and explicit Core cutover per ADR-0003 | Mitigated by design; drill open |

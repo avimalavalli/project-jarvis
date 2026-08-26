@@ -13,6 +13,9 @@ Legend: `[x]` verified, `[~]` draft/partial, `[ ]` open.
 - [x] Immutable stable and newer OpenJarvis candidate commits resolved.
 - [x] Source identity/layout assessment completed without executing upstream code.
 - [x] Both exact candidates installed and imported in an isolated keyless Linux sandbox.
+- [x] Privacy-safe laptop inventory reviewed; raw evidence remains local/private.
+- [x] Laptop-development and larger-PC test/cutover strategy accepted in ADR-0003.
+- [x] Fail-closed Windows exact-candidate evaluation harness created and tested statically.
 - [ ] Stable and newer immutable OpenJarvis candidates executed and compared.
 - [ ] OpenJarvis baseline accepted at an exact commit SHA.
 - [x] Upstream patch register created; current patch count is zero.

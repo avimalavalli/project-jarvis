@@ -30,6 +30,7 @@ REQUIRED_FILES = (
     "docs/adr/0000-template.md",
     "docs/adr/0001-foundation-strategy.md",
     "docs/adr/0002-public-source-boundary.md",
+    "docs/adr/0003-development-host-and-core-migration.md",
     "docs/security/permission-taxonomy-v1.md",
     "docs/security/threat-model.md",
     "docs/security/data-classification.md",
@@ -45,6 +46,7 @@ REQUIRED_FILES = (
     "config/production/jarvis.toml",
     "evals/golden/scenarios.json",
     "scripts/windows/collect_pc_inventory.ps1",
+    "scripts/windows/evaluate_openjarvis_candidates.ps1",
     "scripts/assess_openjarvis_source.py",
 )
 
@@ -154,6 +156,46 @@ def validate_inventory_privacy() -> list[str]:
     return [f"inventory script contains prohibited collection token: {token}" for token in prohibited if token in text]
 
 
+def validate_windows_candidate_harness() -> list[str]:
+    path = ROOT / "scripts/windows/evaluate_openjarvis_candidates.ps1"
+    text = path.read_text(encoding="utf-8")
+    lowered = text.lower()
+    required_tokens = {
+        "normal-user refusal": "windowsbuiltinrole]::administrator",
+        "free-space floor": "$minimumfreebytes = 10gb",
+        "immutable pin source": "foundation/openjarvis/pin.json",
+        "exact commit field": "resolved_commit_sha",
+        "frozen dependency install": '@("sync", "--frozen", "--no-dev")',
+        "frozen import": '@("run", "--frozen", "--no-sync"',
+        "isolated OpenJarvis home": "openjarvis_home",
+        "explicit OpenJarvis config": "openjarvis_config",
+        "isolated stable-candidate profile": "userprofile",
+        "analytics disabled": "[analytics]\nenabled = false",
+        "telemetry disabled": "[telemetry]\nenabled = false",
+        "loopback host": 'host = "127.0.0.1"',
+        "empty tools": "[tools]\nenabled = []",
+        "MCP disabled": "[tools.mcp]\nenabled = false",
+        "memory context disabled": "context_from_memory = false",
+        "blocking security mode": 'mode = "block"',
+        "upstream config assertion": "from openjarvis.core.config import load_config",
+        "credential environment removed": "openai_api_key",
+        "candidate remains unselected": "$null -ne $pin.selected",
+    }
+    errors = [label for label, token in required_tokens.items() if token.lower() not in lowered]
+
+    prohibited_patterns = {
+        "remote command download": r"\b(?:invoke-expression|invoke-webrequest|curl|wget)\b",
+        "software auto-install": r"\b(?:winget|choco|scoop)\b",
+        "background process launch": r"\bstart-process\b",
+        "scheduled-task registration": r"\bregister-scheduledtask\b",
+        "non-loopback bind": r"0\.0\.0\.0",
+        "model-runtime installation": r"\bollama\b",
+        "executable tool default": r"\b(?:shell_exec|web_search|code_interpreter)\b",
+    }
+    errors.extend(label for label, pattern in prohibited_patterns.items() if re.search(pattern, lowered))
+    return [f"Windows candidate harness violates control: {error}" for error in errors]
+
+
 def validate_ci_supply_chain() -> list[str]:
     text = (ROOT / ".github/workflows/phase0.yml").read_text(encoding="utf-8")
     action_refs = re.findall(r"uses:\s+[^@\s]+@([^\s#]+)", text)
@@ -182,6 +224,7 @@ def main() -> int:
         *validate_environments(),
         *validate_golden_scenarios(),
         *validate_inventory_privacy(),
+        *validate_windows_candidate_harness(),
         *validate_ci_supply_chain(),
         *scan_for_secrets(),
     ]

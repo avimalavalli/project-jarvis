@@ -21,8 +21,13 @@ All notable Project JARVIS changes are recorded here.
 - Preliminary keyless sandbox installation and import evidence for both exact candidates.
 - SHA-pinned GitHub Actions and repository-wide CODEOWNERS.
 - Enforced `main` branch protection requiring pull requests and the `foundation` CI check.
+- ADR-0003 defining laptop development, larger-PC testing and single-identity Core migration.
+- Fail-closed Windows harness for exact OpenJarvis source, dependency and import checks.
+- Privacy-safe laptop inventory assessment without committing the private raw report.
 
 ### Security
 
 - Default-deny tools, loopback-only networking, no-cloud evaluation and
   external-telemetry-off assertions.
+- Windows candidate evaluation clears common provider credentials, isolates
+  runtime state, and refuses administrator execution or automatic setup.
