@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "upstream": "https://github.com/open-jarvis/OpenJarvis",
+  "selected": null,
+  "candidates": [
+    {
+      "name": "stable-v1.0.2",
+      "ref": "v1.0.2",
+      "resolved_commit_sha": null,
+      "status": "not_evaluated"
+    },
+    {
+      "name": "newer-2026-08-25",
+      "ref": "ccd66d5f13e61a70ed8b85f17686cdf967341850",
+      "resolved_commit_sha": "ccd66d5f13e61a70ed8b85f17686cdf967341850",
+      "status": "not_evaluated"
+    }
+  ],
+  "patch_count": 0,
+  "selection_requires": [
+    "reproducible_install",
+    "upstream_tests",
+    "zero_key_local_smoke",
+    "loopback_only",
+    "external_telemetry_disabled",
+    "no_plaintext_credentials",
+    "no_executable_tools",
+    "security_boundary_tests",
+    "actual_pc_benchmark"
+  ]
+}
+

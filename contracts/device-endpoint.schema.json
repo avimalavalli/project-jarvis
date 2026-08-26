@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-jarvis.local/contracts/device-endpoint.schema.json",
+  "title": "JARVIS Device Endpoint",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["device_id", "device_type", "trust_state", "capabilities"],
+  "properties": {
+    "device_id": {"type": "string", "minLength": 1},
+    "device_type": {"enum": ["pc", "phone", "tablet", "watch", "vehicle", "home_node", "other"]},
+    "trust_state": {"enum": ["pending", "trusted", "suspended", "revoked"]},
+    "capabilities": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "session_expires_at": {"type": "string", "format": "date-time"},
+    "last_seen_at": {"type": "string", "format": "date-time"}
+  }
+}
+

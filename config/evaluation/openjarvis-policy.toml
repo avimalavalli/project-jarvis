@@ -1,0 +1,38 @@
+# JARVIS-owned evaluation policy. This is not an upstream OpenJarvis config.
+
+[phase]
+number = 0
+phase_1_authorized = false
+
+[network]
+host = "127.0.0.1"
+allow_remote = false
+
+[telemetry]
+local_enabled = true
+external_enabled = false
+
+[tools]
+default_policy = "deny"
+enabled = []
+require_policy_gateway = true
+
+[models]
+allow_local = true
+allow_cloud = false
+paid_key_required = false
+daily_budget = 0.0
+monthly_budget = 0.0
+
+[memory]
+automatic_capture = false
+automatic_promotion = false
+
+[secrets]
+provider = "os_vault"
+allow_plaintext_files = false
+allow_prompt_exposure = false
+
+[analytics]
+external_enabled = false
+

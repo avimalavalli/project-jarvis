@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-jarvis.local/contracts/action.schema.json",
+  "title": "JARVIS Action Proposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["action_id", "action_type", "requested_by", "risk_tier", "capability", "idempotency_key"],
+  "properties": {
+    "action_id": {"type": "string", "minLength": 1},
+    "action_type": {"type": "string", "minLength": 1},
+    "requested_by": {"type": "string", "minLength": 1},
+    "risk_tier": {"type": "integer", "minimum": 0, "maximum": 4},
+    "capability": {"type": "string", "minLength": 1},
+    "idempotency_key": {"type": "string", "minLength": 16},
+    "expires_at": {"type": "string", "format": "date-time"},
+    "parameters": {"type": "object"}
+  }
+}
+

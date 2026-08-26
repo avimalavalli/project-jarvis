@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-jarvis.local/contracts/model-route.schema.json",
+  "title": "JARVIS Model Route Request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["request_id", "task_class", "sensitivity", "local_preferred", "max_cost", "fallback_policy"],
+  "properties": {
+    "request_id": {"type": "string", "minLength": 1},
+    "task_class": {"type": "string", "minLength": 1},
+    "required_capabilities": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "sensitivity": {"enum": ["public", "internal", "personal", "sensitive", "restricted"]},
+    "local_preferred": {"const": true},
+    "max_cost": {"type": "number", "minimum": 0},
+    "latency_target_ms": {"type": "integer", "minimum": 1},
+    "fallback_policy": {"enum": ["local_only", "local_then_cloud", "cloud_then_local"]},
+    "allowed_providers": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+  }
+}
+
