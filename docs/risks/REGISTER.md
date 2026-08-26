@@ -18,3 +18,4 @@ Last updated: 2026-08-26
 | R-012 | Premature hardware/microservices | Medium | Unassigned | Existing PC and modular monolith first | Mitigated by design |
 | R-013 | Phase 0 functions lack named owners | High | Avi | Assign accountable owners | Open |
 | R-014 | Laptop and larger PC diverge into separate JARVIS identities | Critical | Avi | One canonical state authority; verified backup/restore and explicit Core cutover per ADR-0003 | Mitigated by design; drill open |
+| R-015 | Windows-only shell behaviour differs from static/Linux validation | Medium | Project JARVIS engineering | Fail closed, capture actual-PC evidence and add a regression control for each discrepancy | Open — first discrepancy corrected; rerun pending |

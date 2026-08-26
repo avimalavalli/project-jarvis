@@ -180,8 +180,15 @@ def validate_windows_candidate_harness() -> list[str]:
         "upstream config assertion": "from openjarvis.core.config import load_config",
         "credential environment removed": "openai_api_key",
         "candidate remains unselected": "$null -ne $pin.selected",
+        "Git version output validated": 'expectedpattern "^git version [0-9]"',
+        "Python version output validated": 'expectedpattern "^[0-9]+[.][0-9]+[.][0-9]+$"',
+        "uv version output validated": 'expectedpattern "^uv [0-9]"',
     }
     errors = [label for label, token in required_tokens.items() if token.lower() not in lowered]
+
+    version_section = lowered.split("$git = get-requiredapplication", 1)[-1].split("$pin =", 1)[0]
+    if "$lastexitcode" in version_section:
+        errors.append("version probes depend on pipeline exit-state propagation")
 
     prohibited_patterns = {
         "remote command download": r"\b(?:invoke-expression|invoke-webrequest|curl|wget)\b",

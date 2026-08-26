@@ -31,3 +31,8 @@ All notable Project JARVIS changes are recorded here.
   external-telemetry-off assertions.
 - Windows candidate evaluation clears common provider credentials, isolates
   runtime state, and refuses administrator execution or automatic setup.
+
+### Fixed
+
+- Windows PowerShell 5.1 version probes now validate captured output directly
+  instead of relying on native exit-state propagation through a pipeline.

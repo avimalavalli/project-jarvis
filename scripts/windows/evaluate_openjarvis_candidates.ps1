@@ -18,6 +18,25 @@ function Get-RequiredApplication {
     return $command.Source
 }
 
+function Read-ApplicationVersion {
+    param(
+        [Parameter(Mandatory = $true)][string]$FilePath,
+        [Parameter(Mandatory = $true)][string[]]$Arguments,
+        [Parameter(Mandatory = $true)][string]$ExpectedPattern,
+        [Parameter(Mandatory = $true)][string]$DisplayName
+    )
+
+    $rawOutput = @(& $FilePath @Arguments 2>&1)
+    if ($rawOutput.Count -eq 0) {
+        throw "$DisplayName did not return version text."
+    }
+    $versionText = $rawOutput[0].ToString().Trim()
+    if (-not [regex]::IsMatch($versionText, $ExpectedPattern)) {
+        throw "$DisplayName returned unexpected version text: $versionText"
+    }
+    return $versionText
+}
+
 function Invoke-LoggedCommand {
     param(
         [Parameter(Mandatory = $true)][string]$FilePath,
@@ -107,19 +126,13 @@ $Git = Get-RequiredApplication "git"
 $Python = Get-RequiredApplication "python"
 $Uv = Get-RequiredApplication "uv"
 
-$gitVersionText = (& $Git --version | Select-Object -First 1).ToString().Trim()
-if ($LASTEXITCODE -ne 0) {
-    throw "Git could not report its version."
-}
-$pythonVersionText = (& $Python -c "import sys; print('.'.join(map(str, sys.version_info[:3])))" |
-    Select-Object -First 1).ToString().Trim()
-if ($LASTEXITCODE -ne 0) {
-    throw "Python could not report its version."
-}
-$uvVersionText = (& $Uv --version | Select-Object -First 1).ToString().Trim()
-if ($LASTEXITCODE -ne 0) {
-    throw "uv could not report its version."
-}
+$gitVersionText = Read-ApplicationVersion -FilePath $Git -Arguments @("--version") `
+    -ExpectedPattern "^git version [0-9]" -DisplayName "Git"
+$pythonVersionText = Read-ApplicationVersion -FilePath $Python `
+    -Arguments @("-c", "import sys; print('.'.join(map(str, sys.version_info[:3])))") `
+    -ExpectedPattern "^[0-9]+[.][0-9]+[.][0-9]+$" -DisplayName "Python"
+$uvVersionText = Read-ApplicationVersion -FilePath $Uv -Arguments @("--version") `
+    -ExpectedPattern "^uv [0-9]" -DisplayName "uv"
 $pythonVersion = [Version]$pythonVersionText
 if ($pythonVersion.Major -ne 3 -or $pythonVersion.Minor -lt 10 -or $pythonVersion.Minor -gt 13) {
     throw "Python 3.10 through 3.13 is required. Found $pythonVersionText."

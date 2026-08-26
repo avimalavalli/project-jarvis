@@ -15,7 +15,8 @@ Legend: `[x]` verified, `[~]` draft/partial, `[ ]` open.
 - [x] Both exact candidates installed and imported in an isolated keyless Linux sandbox.
 - [x] Privacy-safe laptop inventory reviewed; raw evidence remains local/private.
 - [x] Laptop-development and larger-PC test/cutover strategy accepted in ADR-0003.
-- [x] Fail-closed Windows exact-candidate evaluation harness created and tested statically.
+- [~] Fail-closed Windows exact-candidate evaluation harness created; first run
+  stopped safely at version probing, and the corrected probe awaits rerun.
 - [ ] Stable and newer immutable OpenJarvis candidates executed and compared.
 - [ ] OpenJarvis baseline accepted at an exact commit SHA.
 - [x] Upstream patch register created; current patch count is zero.
