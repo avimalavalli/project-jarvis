@@ -1,0 +1,30 @@
+[environment]
+name = "staging"
+production = false
+
+[network]
+host = "127.0.0.1"
+allow_remote = false
+
+[telemetry]
+local_enabled = true
+external_enabled = false
+
+[tools]
+default_policy = "deny"
+enabled = []
+
+[models]
+allow_local = true
+allow_cloud = false
+daily_budget = 0.0
+monthly_budget = 0.0
+
+[memory]
+automatic_capture = false
+automatic_promotion = false
+
+[secrets]
+provider = "os_vault"
+allow_plaintext_files = false
+

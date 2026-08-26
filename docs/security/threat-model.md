@@ -1,6 +1,6 @@
 # Threat Model
 
-Status: Draft skeleton. P0-GATE-4 remains open.
+Version: 1.0 proposed. P0-GATE-4 remains open until owner review.
 
 ## Assets
 
@@ -42,4 +42,3 @@ Status: Draft skeleton. P0-GATE-4 remains open.
 
 Owners, likelihood, impact, mitigations, residual risk and review dates must be
 assigned before this threat model can satisfy P0-GATE-4.
-

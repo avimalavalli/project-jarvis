@@ -9,24 +9,33 @@ Legend: `[x]` verified, `[~]` draft/partial, `[ ]` open.
 - [x] Public-safe repository scaffold prepared and published.
 - [x] GitHub repository visibility verified as public and documented in ADR-0002.
 - [ ] Protected `main` and required review/CI configured.
+- [x] Immutable stable and newer OpenJarvis candidate commits resolved.
+- [x] Source identity/layout assessment completed without executing upstream code.
 - [ ] Stable and newer immutable OpenJarvis candidates executed and compared.
 - [ ] OpenJarvis baseline accepted at an exact commit SHA.
 - [x] Upstream patch register created; current patch count is zero.
-- [~] Development evaluation policy created.
-- [ ] Staging and production profiles approved.
+- [x] Fail-closed dev, staging and production profiles created and schema-tested.
+- [ ] Staging and production operating procedures approved.
 
 ## Governance and architecture
 
-- [~] Logical service boundaries drafted.
+- [x] Major functions mapped to authoritative services/layers.
+- [~] Persona constitution v1 proposed.
+- [~] Permission/action taxonomy v1 proposed.
+- [~] Canonical memory/world-model v1 proposed.
+- [~] Model-routing and device-endpoint contracts proposed.
+- [~] OpenJarvis versus JARVIS ownership boundary proposed.
 - [~] ADR template and initial foundation ADR drafted.
-- [~] Permission, memory, endpoint, route, event and audit contracts drafted.
-- [ ] Owners assigned and decisions approved.
-- [ ] Backup/restore and incident runbooks tested.
+- [~] Permission, memory, endpoint, route, event and audit schemas drafted.
+- [ ] Proposed specifications reviewed and approved.
+- [x] Golden scenario/evaluation suite skeleton created.
+- [~] Backup/recovery design created; restore drill remains open.
+- [ ] Incident and credential-rotation runbooks tested.
 
 ## Security and data
 
-- [~] Threat-model skeleton created.
-- [~] Data-classification proposal created.
+- [~] Threat model v1 proposed; owner review remains open.
+- [~] Data-classification and retention v1 proposed; owner review remains open.
 - [ ] Complete action inventory mapped to approved permission tiers.
 - [ ] OS-backed secrets broker proven on Avi's computer.
 - [ ] Memory lifecycle, provenance, correction and deletion rules approved.
@@ -44,7 +53,7 @@ Legend: `[x]` verified, `[~]` draft/partial, `[ ]` open.
 
 | Gate | Evidence | Status |
 |---|---|---|
-| P0-GATE-1 | Named owner for every function and control | Open |
+| P0-GATE-1 | Every major function belongs to a named service/layer | Evidence drafted; approval open |
 | P0-GATE-2 | Every action mapped to an approved permission tier | Open |
 | P0-GATE-3 | Canonical memory classes and lifecycle approved | Open |
 | P0-GATE-4 | Threat model reviewed and mitigations assigned | Open |

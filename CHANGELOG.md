@@ -13,6 +13,12 @@ All notable Project JARVIS changes are recorded here.
 - Zero-capability OpenJarvis evaluation policy.
 - Local and CI foundation validation.
 - ADR-0002 defining the public-source/private-data boundary.
+- Phase 0 persona, permissions, memory, routing, device and ownership specifications.
+- Event contract, golden evaluation skeleton and fail-closed environment profiles.
+- Backup/recovery and actual-PC assessment runbooks.
+- Safe Windows hardware inventory and OpenJarvis source-identity assessment scripts.
+- Exact stable and newer OpenJarvis candidate commits.
+- SHA-pinned GitHub Actions and repository-wide CODEOWNERS.
 
 ### Security
 

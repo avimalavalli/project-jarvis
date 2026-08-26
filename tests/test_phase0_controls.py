@@ -25,10 +25,21 @@ class Phase0ControlTests(unittest.TestCase):
     def test_upstream_is_not_prematurely_selected_or_patched(self) -> None:
         self.assertEqual(CHECKS.validate_pin(), [])
 
+    def test_environment_profiles_fail_closed(self) -> None:
+        self.assertEqual(CHECKS.validate_environments(), [])
+
+    def test_golden_suite_covers_foundation_risks(self) -> None:
+        self.assertEqual(CHECKS.validate_golden_scenarios(), [])
+
+    def test_pc_inventory_avoids_private_identifiers(self) -> None:
+        self.assertEqual(CHECKS.validate_inventory_privacy(), [])
+
+    def test_ci_actions_are_sha_pinned(self) -> None:
+        self.assertEqual(CHECKS.validate_ci_supply_chain(), [])
+
     def test_no_obvious_secret_material_is_committed(self) -> None:
         self.assertEqual(CHECKS.scan_for_secrets(), [])
 
 
 if __name__ == "__main__":
     unittest.main()
-
