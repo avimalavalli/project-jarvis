@@ -18,6 +18,7 @@ All notable Project JARVIS changes are recorded here.
 - Backup/recovery and actual-PC assessment runbooks.
 - Safe Windows hardware inventory and OpenJarvis source-identity assessment scripts.
 - Exact stable and newer OpenJarvis candidate commits.
+- Preliminary keyless sandbox installation and import evidence for both exact candidates.
 - SHA-pinned GitHub Actions and repository-wide CODEOWNERS.
 
 ### Security

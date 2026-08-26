@@ -8,13 +8,13 @@
       "ref": "v1.0.2",
       "tag_object_sha": "232645ddec6e68a43a14471f56f07c1abfc3174e",
       "resolved_commit_sha": "56c9a59f8dfa138f16afd3ccff5d394a13801162",
-      "status": "source_identity_verified"
+      "status": "sandbox_install_import_verified"
     },
     {
       "name": "newer-2026-08-25-substantive",
       "ref": "dbd4a1dfd75e9ce12aa21ea99a9970cb4eb47074",
       "resolved_commit_sha": "dbd4a1dfd75e9ce12aa21ea99a9970cb4eb47074",
-      "status": "source_identity_verified"
+      "status": "sandbox_install_import_verified"
     }
   ],
   "patch_count": 0,
