@@ -11,6 +11,7 @@ Legend: `[x]` verified, `[~]` draft/partial, `[ ]` open.
 - [ ] Protected `main` and required review/CI configured.
 - [x] Immutable stable and newer OpenJarvis candidate commits resolved.
 - [x] Source identity/layout assessment completed without executing upstream code.
+- [x] Both exact candidates installed and imported in an isolated keyless Linux sandbox.
 - [ ] Stable and newer immutable OpenJarvis candidates executed and compared.
 - [ ] OpenJarvis baseline accepted at an exact commit SHA.
 - [x] Upstream patch register created; current patch count is zero.

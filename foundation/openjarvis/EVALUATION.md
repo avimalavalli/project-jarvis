@@ -1,6 +1,7 @@
 # OpenJarvis Candidate Evaluation
 
-Status: Source assessment in progress; runtime selection remains open.
+Status: Preliminary sandbox installation evidence captured; runtime selection
+remains open.
 
 ## Immutable candidates
 
@@ -23,15 +24,32 @@ Status: Source assessment in progress; runtime selection remains open.
 - The candidate delta is large: 681 files changed, 72,204 insertions and 12,804
   deletions. Runtime selection therefore cannot be inferred from release age.
 
-Source reports were written to ignored local `artifacts/phase0/` files. Runtime,
-Windows, network, credential and performance evidence remains outstanding.
+Source reports were written to ignored local `artifacts/phase0/` files.
+
+## Verified preliminary sandbox evidence — 2026-08-26
+
+- Each exact candidate was installed independently with `uv sync --frozen
+  --no-dev` into its own project-local virtual environment.
+- No API key, model, tool, connector or server was configured or invoked.
+- Stable installed as `openjarvis==1.0.2` and imported from the expected
+  `src/openjarvis` checkout at commit
+  `56c9a59f8dfa138f16afd3ccff5d394a13801162`.
+- Newer installed as `openjarvis==0.0.1.dev1+unknown.gdbd4a1dfd` and imported
+  from the expected `src/openjarvis` checkout at commit
+  `dbd4a1dfd75e9ce12aa21ea99a9970cb4eb47074`.
+- Both upstream worktrees remained clean after the checks.
+
+This evidence proves dependency resolution, package build and import only in an
+isolated Linux sandbox. It does **not** prove Windows support, runtime safety,
+model inference, network behaviour, credential handling, tool isolation or
+performance on Avi's computer. No candidate is selected.
 
 ## Evaluation stages
 
 1. **Source identity:** exact SHA, clean tree, Python requirement, expected
    subsystem layout and zero JARVIS patches.
-2. **Isolated install:** use a fresh environment on Avi's PC; capture resolver,
-   package and doctor output.
+2. **Isolated install:** repeat the verified sandbox install in a fresh
+   environment on Avi's PC; capture resolver, package and doctor output.
 3. **Zero-capability configuration:** loopback only, external analytics off,
    no cloud keys, tools, connectors or automatic memory.
 4. **Runtime tests:** upstream tests, doctor, strict boundary scan and one local
