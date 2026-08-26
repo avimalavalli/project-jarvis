@@ -20,6 +20,7 @@ All notable Project JARVIS changes are recorded here.
 - Exact stable and newer OpenJarvis candidate commits.
 - Preliminary keyless sandbox installation and import evidence for both exact candidates.
 - SHA-pinned GitHub Actions and repository-wide CODEOWNERS.
+- Enforced `main` branch protection requiring pull requests and the `foundation` CI check.
 
 ### Security
 
