@@ -37,6 +37,15 @@ class Phase0ControlTests(unittest.TestCase):
     def test_windows_candidate_harness_fails_closed(self) -> None:
         self.assertEqual(CHECKS.validate_windows_candidate_harness(), [])
 
+    def test_windows_version_probes_avoid_pipeline_exit_state(self) -> None:
+        harness = (ROOT / "scripts/windows/evaluate_openjarvis_candidates.ps1").read_text(
+            encoding="utf-8"
+        ).lower()
+        version_section = harness.split("$git = get-requiredapplication", 1)[-1].split(
+            "$pin =", 1
+        )[0]
+        self.assertNotIn("$lastexitcode", version_section)
+
     def test_ci_actions_are_sha_pinned(self) -> None:
         self.assertEqual(CHECKS.validate_ci_supply_chain(), [])
 
