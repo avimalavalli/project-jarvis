@@ -36,3 +36,4 @@ All notable Project JARVIS changes are recorded here.
 
 - Windows PowerShell 5.1 version probes now validate captured output directly
   instead of relying on native exit-state propagation through a pipeline.
+- Recorded recovery from a delayed Phase 0 pull-request check during Windows evaluation.
