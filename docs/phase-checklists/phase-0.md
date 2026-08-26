@@ -14,6 +14,8 @@ Legend: `[x]` verified, `[~]` draft/partial, `[ ]` open.
 - [x] Source identity/layout assessment completed without executing upstream code.
 - [x] Both exact candidates installed and imported in an isolated keyless Linux sandbox.
 - [x] Privacy-safe laptop inventory reviewed; raw evidence remains local/private.
+- [x] Laptop Git `2.55.0.windows.3` and public repository checkout verified at
+  protected-main commit `47e5a23`.
 - [x] Laptop-development and larger-PC test/cutover strategy accepted in ADR-0003.
 - [~] Fail-closed Windows exact-candidate evaluation harness created; first run
   stopped safely at version probing, and the corrected probe awaits rerun.
