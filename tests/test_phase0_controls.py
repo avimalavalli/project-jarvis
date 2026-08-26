@@ -34,6 +34,9 @@ class Phase0ControlTests(unittest.TestCase):
     def test_pc_inventory_avoids_private_identifiers(self) -> None:
         self.assertEqual(CHECKS.validate_inventory_privacy(), [])
 
+    def test_windows_candidate_harness_fails_closed(self) -> None:
+        self.assertEqual(CHECKS.validate_windows_candidate_harness(), [])
+
     def test_ci_actions_are_sha_pinned(self) -> None:
         self.assertEqual(CHECKS.validate_ci_supply_chain(), [])
 
