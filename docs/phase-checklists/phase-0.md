@@ -8,7 +8,8 @@ Legend: `[x]` verified, `[~]` draft/partial, `[ ]` open.
 
 - [x] Public-safe repository scaffold prepared and published.
 - [x] GitHub repository visibility verified as public and documented in ADR-0002.
-- [ ] Protected `main` and required review/CI configured.
+- [x] Protected `main` requires pull requests and the `foundation` CI check;
+  administrator bypass, force pushes and deletion are disabled.
 - [x] Immutable stable and newer OpenJarvis candidate commits resolved.
 - [x] Source identity/layout assessment completed without executing upstream code.
 - [x] Both exact candidates installed and imported in an isolated keyless Linux sandbox.
