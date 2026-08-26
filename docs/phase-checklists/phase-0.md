@@ -6,8 +6,8 @@ Legend: `[x]` verified, `[~]` draft/partial, `[ ]` open.
 
 ## Repository and foundation
 
-- [~] Private repository scaffold prepared locally.
-- [ ] Private GitHub repository created and visibility verified.
+- [x] Public-safe repository scaffold prepared and published.
+- [x] GitHub repository visibility verified as public and documented in ADR-0002.
 - [ ] Protected `main` and required review/CI configured.
 - [ ] Stable and newer immutable OpenJarvis candidates executed and compared.
 - [ ] OpenJarvis baseline accepted at an exact commit SHA.
@@ -51,4 +51,3 @@ Legend: `[x]` verified, `[~]` draft/partial, `[ ]` open.
 | P0-GATE-5 | Upstream versus JARVIS ownership split approved | Open |
 
 **Phase 1 remains blocked while any gate is open.**
-

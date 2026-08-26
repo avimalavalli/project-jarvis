@@ -1,8 +1,9 @@
 # Security Policy
 
-Project JARVIS is private and pre-release. Do not place credentials, tokens,
-personal memory, biometric data, camera data, production logs, or database
-exports in this repository.
+Project JARVIS source is public and pre-release; its data is private. Do not
+place credentials, tokens, personal memory, biometric data, camera data,
+private runtime configuration, production logs, backups, device identities, or
+database exports in this repository.
 
 ## Mandatory boundaries
 
@@ -17,4 +18,3 @@ exports in this repository.
 
 Security reports should be disclosed privately to the repository owner. Do not
 open a public issue containing exploit details, credentials, or personal data.
-

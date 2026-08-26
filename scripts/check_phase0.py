@@ -21,6 +21,7 @@ REQUIRED_FILES = (
     "docs/architecture/service-boundaries.md",
     "docs/adr/0000-template.md",
     "docs/adr/0001-foundation-strategy.md",
+    "docs/adr/0002-public-source-boundary.md",
     "docs/security/threat-model.md",
     "docs/security/data-classification.md",
     "docs/risks/REGISTER.md",
@@ -116,4 +117,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-

@@ -1,7 +1,7 @@
 # Project JARVIS
 
-Private, local-first personal intelligence built around one persistent JARVIS
-identity across trusted devices.
+Local-first personal intelligence built around one persistent JARVIS identity
+across trusted devices.
 
 ## Current phase
 
@@ -13,6 +13,13 @@ This repository currently contains control documents, draft contracts, a
 zero-capability foundation-evaluation policy, and validation tests. It does not
 yet contain a working assistant, enabled tools, cloud credentials, personal
 memory, or remote device access.
+
+## Public-source boundary
+
+This code repository is intentionally public. Personal memory, secrets, private
+runtime configuration, logs, databases, backups, device identities, and the
+canonical blueprint PDF must never be committed here. Public source does not
+make JARVIS data public; that boundary is recorded in ADR-0002.
 
 ## Non-negotiable doctrine
 
@@ -41,4 +48,3 @@ python -m unittest discover -s tests -v
 
 No model download, cloud key, container runtime, or network service is required
 for these checks.
-
