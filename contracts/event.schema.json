@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-jarvis.local/contracts/event.schema.json",
+  "title": "JARVIS Internal Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["event_id", "event_type", "occurred_at", "source", "trust", "sensitivity", "correlation_id", "payload"],
+  "properties": {
+    "event_id": {"type": "string", "minLength": 1},
+    "event_type": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]+$"},
+    "occurred_at": {"type": "string", "format": "date-time"},
+    "source": {"type": "string", "minLength": 1},
+    "trust": {"enum": ["trusted", "untrusted", "derived"]},
+    "sensitivity": {"enum": ["public", "internal", "personal", "sensitive", "restricted"]},
+    "correlation_id": {"type": "string", "minLength": 1},
+    "causation_id": {"type": "string"},
+    "schema_version": {"type": "string", "const": "1.0"},
+    "payload": {"type": "object"}
+  }
+}
+

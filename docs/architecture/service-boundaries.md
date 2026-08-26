@@ -1,6 +1,6 @@
 # Logical Service Boundaries
 
-Status: Draft for Phase 0 approval.
+Version: 1.0 proposed for Phase 0 approval.
 
 Project JARVIS begins as a modular monolith. These are contract boundaries, not
 an instruction to deploy early microservices.
@@ -29,4 +29,3 @@ denial. The model may propose an action; it cannot grant itself permission.
 Core modules run in one local process and use one local canonical database.
 Network services bind only to `127.0.0.1`. Separation into independent services
 requires measured scaling, fault-isolation or security evidence and a new ADR.
-

@@ -16,18 +16,36 @@ REQUIRED_FILES = (
     "README.md",
     "SECURITY.md",
     "CHANGELOG.md",
+    ".github/CODEOWNERS",
+    ".github/workflows/phase0.yml",
     "docs/blueprint/README.md",
     "docs/phase-checklists/phase-0.md",
     "docs/architecture/service-boundaries.md",
+    "docs/architecture/ownership-map.md",
+    "docs/architecture/model-routing-v1.md",
+    "docs/architecture/upstream-boundary.md",
+    "docs/architecture/device-endpoint-v1.md",
+    "docs/persona/constitution-v1.md",
+    "docs/memory/world-model-v1.md",
     "docs/adr/0000-template.md",
     "docs/adr/0001-foundation-strategy.md",
     "docs/adr/0002-public-source-boundary.md",
+    "docs/security/permission-taxonomy-v1.md",
     "docs/security/threat-model.md",
     "docs/security/data-classification.md",
     "docs/risks/REGISTER.md",
+    "docs/runbooks/backup-recovery.md",
+    "docs/runbooks/actual-pc-assessment.md",
     "foundation/openjarvis/PIN.json",
     "foundation/openjarvis/PATCHES.md",
+    "foundation/openjarvis/EVALUATION.md",
     "config/evaluation/openjarvis-policy.toml",
+    "config/dev/jarvis.toml",
+    "config/staging/jarvis.toml",
+    "config/production/jarvis.toml",
+    "evals/golden/scenarios.json",
+    "scripts/windows/collect_pc_inventory.ps1",
+    "scripts/assess_openjarvis_source.py",
 )
 
 SECRET_PATTERNS = {
@@ -51,8 +69,8 @@ def validate_json() -> list[str]:
             continue
         if document.get("$schema") != "https://json-schema.org/draft/2020-12/schema":
             errors.append(f"unexpected JSON Schema dialect: {path.relative_to(ROOT)}")
-    if len(list((ROOT / "contracts").glob("*.schema.json"))) != 6:
-        errors.append("expected exactly six Phase 0 contract schemas")
+    if len(list((ROOT / "contracts").glob("*.schema.json"))) != 7:
+        errors.append("expected exactly seven Phase 0 contract schemas")
     return errors
 
 
@@ -82,7 +100,64 @@ def validate_pin() -> list[str]:
         errors.append("OpenJarvis must remain unselected until evaluation evidence exists")
     if pin["patch_count"] != 0:
         errors.append("initial upstream patch count must be zero")
+    for candidate in pin["candidates"]:
+        sha = candidate.get("resolved_commit_sha")
+        if not isinstance(sha, str) or not re.fullmatch(r"[0-9a-f]{40}", sha):
+            errors.append(f"candidate is not resolved to an exact SHA: {candidate.get('name')}")
     return errors
+
+
+def validate_environments() -> list[str]:
+    errors: list[str] = []
+    expected = {"dev": False, "staging": False, "production": True}
+    for name, production in expected.items():
+        path = ROOT / "config" / name / "jarvis.toml"
+        with path.open("rb") as handle:
+            config = tomllib.load(handle)
+        checks = {
+            "environment name": config["environment"]["name"] == name,
+            "production flag": config["environment"]["production"] is production,
+            "loopback host": config["network"]["host"] == "127.0.0.1",
+            "remote disabled": config["network"]["allow_remote"] is False,
+            "external telemetry disabled": config["telemetry"]["external_enabled"] is False,
+            "tools default deny": config["tools"]["default_policy"] == "deny",
+            "tools empty": config["tools"]["enabled"] == [],
+            "cloud disabled": config["models"]["allow_cloud"] is False,
+            "automatic memory disabled": config["memory"]["automatic_capture"] is False,
+            "plaintext secrets disabled": config["secrets"]["allow_plaintext_files"] is False,
+        }
+        errors.extend(f"{name}: {label}" for label, passed in checks.items() if not passed)
+    return errors
+
+
+def validate_golden_scenarios() -> list[str]:
+    path = ROOT / "evals/golden/scenarios.json"
+    document = json.loads(path.read_text(encoding="utf-8"))
+    scenarios = document.get("scenarios", [])
+    ids = [scenario.get("id") for scenario in scenarios]
+    errors: list[str] = []
+    if len(scenarios) < 12:
+        errors.append("golden suite must contain at least 12 scenarios")
+    if len(ids) != len(set(ids)):
+        errors.append("golden scenario IDs must be unique")
+    required_categories = {"identity", "truthfulness", "permissions", "routing", "memory", "privacy", "actions", "injection", "devices"}
+    present = {scenario.get("category") for scenario in scenarios}
+    missing = sorted(required_categories - present)
+    if missing:
+        errors.append(f"golden suite missing categories: {', '.join(missing)}")
+    return errors
+
+
+def validate_inventory_privacy() -> list[str]:
+    text = (ROOT / "scripts/windows/collect_pc_inventory.ps1").read_text(encoding="utf-8")
+    prohibited = ("Win32_UserAccount", "UserName", "SerialNumber", "IPAddress", "Get-ChildItem Env:")
+    return [f"inventory script contains prohibited collection token: {token}" for token in prohibited if token in text]
+
+
+def validate_ci_supply_chain() -> list[str]:
+    text = (ROOT / ".github/workflows/phase0.yml").read_text(encoding="utf-8")
+    action_refs = re.findall(r"uses:\s+[^@\s]+@([^\s#]+)", text)
+    return [f"GitHub Action is not pinned to a full SHA: {ref}" for ref in action_refs if not re.fullmatch(r"[0-9a-f]{40}", ref)]
 
 
 def scan_for_secrets() -> list[str]:
@@ -104,6 +179,10 @@ def main() -> int:
         *validate_json(),
         *validate_policy(),
         *validate_pin(),
+        *validate_environments(),
+        *validate_golden_scenarios(),
+        *validate_inventory_privacy(),
+        *validate_ci_supply_chain(),
         *scan_for_secrets(),
     ]
     if errors:

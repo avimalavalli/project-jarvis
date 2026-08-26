@@ -1,6 +1,6 @@
 # Data Classification and Retention
 
-Status: Proposed draft. P0-GATE-3 remains open.
+Version: 1.0 proposed. P0-GATE-3 remains open until owner review.
 
 | Class | Examples | Default location | Cloud use | Retention |
 |---|---|---|---|---|
@@ -19,4 +19,3 @@ and links to superseding or contradictory records where applicable.
 Derived embeddings and retrieval indexes are rebuildable and are never the
 canonical record. Deletion from canonical memory must propagate to derived
 stores and backups according to an approved deletion policy.
-

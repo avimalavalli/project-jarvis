@@ -8,8 +8,7 @@ SHA-256:
 7e1d46ca5a251096d22d0353492546f0dfdd95ee0a4d9a01a86db3b95de9a6ba
 ```
 
-The original document is retained outside source control unless the owner
-explicitly approves storing it in this private repository. Architectural and
-product decisions must be checked against this fingerprinted version plus the
-approved API/subscription and hardware clarifications.
-
+The original document is retained outside source control. Publishing the
+source repository does not publish this private design document. Architectural
+and product decisions must be checked against the fingerprinted version plus
+the approved API/subscription and hardware clarifications.
