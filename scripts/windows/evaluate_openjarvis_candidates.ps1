@@ -107,10 +107,18 @@ $Git = Get-RequiredApplication "git"
 $Python = Get-RequiredApplication "python"
 $Uv = Get-RequiredApplication "uv"
 
+$gitVersionText = (& $Git --version | Select-Object -First 1).ToString().Trim()
+if ($LASTEXITCODE -ne 0) {
+    throw "Git could not report its version."
+}
 $pythonVersionText = (& $Python -c "import sys; print('.'.join(map(str, sys.version_info[:3])))" |
     Select-Object -First 1).ToString().Trim()
 if ($LASTEXITCODE -ne 0) {
     throw "Python could not report its version."
+}
+$uvVersionText = (& $Uv --version | Select-Object -First 1).ToString().Trim()
+if ($LASTEXITCODE -ne 0) {
+    throw "uv could not report its version."
 }
 $pythonVersion = [Version]$pythonVersionText
 if ($pythonVersion.Major -ne 3 -or $pythonVersion.Minor -lt 10 -or $pythonVersion.Minor -gt 13) {
@@ -394,7 +402,9 @@ $summary = [ordered]@{
     run_id = $RunId
     phase = 0
     scope = "Exact source, dependency sync, import and fail-closed config checks only; no model, tool, connector or server was invoked."
+    git_version = $gitVersionText
     python_version = $pythonVersionText
+    uv_version = $uvVersionText
     candidates = $candidateResults
     passed = $allPassed
 }
